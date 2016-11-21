@@ -35,9 +35,7 @@ tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/test',
 tf.app.flags.DEFINE_string('sequence_example_file', '/tmp/attention_rnn/sequence_examples/training_melodies.tfrecord',
                            'Path to TFRecord file containing '
                            'tf.SequenceExample records for training or '
-                           'evaluation. May be a sharded file of the form '
-                           '`<filebase>@<N>`.')
-tf.app.flags.DEFINE_integer('num_training_steps', 2000,
+tf.app.flags.DEFINE_integer('num_training_steps', 0,
                             'The the number of global training steps your '
                             'model should take before exiting training. '
                             'During evaluation, the eval loop will run until '
