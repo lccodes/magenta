@@ -22,8 +22,8 @@ from magenta.models.melody_rnn import melody_rnn_model
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string(
     'config',
-    None,
-    "Which config to use. Must be one of 'basic', 'lookback', or 'attention'. "
+    'attention_rnn',
+    "Which config to use. Must be one of 'basic_rnn', 'lookback_rnn', or 'attention_rnn'. "
     "Mutually exclusive with `--melody_encoder_decoder`.")
 tf.app.flags.DEFINE_string(
     'melody_encoder_decoder',

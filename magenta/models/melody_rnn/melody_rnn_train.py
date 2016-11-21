@@ -19,11 +19,11 @@ import os
 import tensorflow as tf
 
 from magenta.models.melody_rnn import melody_rnn_config_flags
-from magenta.models.shared import events_rnn_graph
+from magenta.models.shared import vl_rnn_graph
 from magenta.models.shared import events_rnn_train
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/run1',
+tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/test',
                            'Path to the directory where checkpoints and '
                            'summary events will be saved during training and '
                            'evaluation. Separate subdirectories for training '
@@ -32,12 +32,12 @@ tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/run1',
                            'parent directory of `run_dir`. Point TensorBoard '
                            'to the parent directory of `run_dir` to see all '
                            'your runs.')
-tf.app.flags.DEFINE_string('sequence_example_file', '',
+tf.app.flags.DEFINE_string('sequence_example_file', '/tmp/attention_rnn/sequence_examples/training_melodies.tfrecord',
                            'Path to TFRecord file containing '
                            'tf.SequenceExample records for training or '
                            'evaluation. May be a sharded file of the form '
                            '`<filebase>@<N>`.')
-tf.app.flags.DEFINE_integer('num_training_steps', 0,
+tf.app.flags.DEFINE_integer('num_training_steps', 2000,
                             'The the number of global training steps your '
                             'model should take before exiting training. '
                             'During evaluation, the eval loop will run until '
@@ -55,11 +55,12 @@ tf.app.flags.DEFINE_boolean('eval', False,
 tf.app.flags.DEFINE_string('log', 'INFO',
                            'The threshold for what messages will be logged '
                            'DEBUG, INFO, WARN, ERROR, or FATAL.')
-
+tf.app.flags.DEFINE_string('graph', 'new', 'Which graph to use; either VLs (new) or Magentas (old)')
 
 def main(unused_argv):
   tf.logging.set_verbosity(FLAGS.log)
 
+  tf.logging.info('RUN FROM SOURCE')
   if not FLAGS.run_dir:
     tf.logging.fatal('--run_dir required')
     return
@@ -73,8 +74,13 @@ def main(unused_argv):
   config = melody_rnn_config_flags.config_from_flags()
 
   mode = 'eval' if FLAGS.eval else 'train'
-  graph = events_rnn_graph.build_graph(
-      mode, config, sequence_example_file)
+  graph = None
+  if FLAGS.graph == 'old':
+    tf.logging.info('Using old graph')
+    graph = events_rnn_graph.build_graph(mode, config, sequence_example_file)
+  else:
+    tf.logging.info('Using new graph')
+    graph = vl_rnn_graph.build_graph(mode, config, sequence_example_file)
 
   train_dir = os.path.join(run_dir, 'train')
   if not os.path.exists(train_dir):

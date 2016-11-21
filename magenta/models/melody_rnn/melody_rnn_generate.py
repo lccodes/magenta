@@ -30,7 +30,7 @@ from magenta.protobuf import music_pb2
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string(
-    'run_dir', None,
+    'run_dir', '/tmp/attention_rnn/logdir/run1',
     'Path to the directory where the latest checkpoint will be loaded from.')
 tf.app.flags.DEFINE_string(
     'checkpoint_file', None,
@@ -255,6 +255,7 @@ def main(unused_argv):
 
 
 def console_entry_point():
+  tf.logging.info('BUILT FROM SOURCE')
   tf.app.run(main)
 
 

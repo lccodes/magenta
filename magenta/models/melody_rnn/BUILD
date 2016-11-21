@@ -97,6 +97,7 @@ py_binary(
         ":melody_rnn_config_flags",
         "//magenta/models/shared:events_rnn_graph",
         "//magenta/models/shared:events_rnn_train",
+        "//magenta/models/shared:vl_rnn_graph",
         # tensorflow dep
     ],
 )
