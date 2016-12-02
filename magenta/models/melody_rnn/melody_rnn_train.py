@@ -23,7 +23,7 @@ from magenta.models.shared import vl_rnn_graph
 from magenta.models.shared import events_rnn_train
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/test',
+tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/freq',
                            'Path to the directory where checkpoints and '
                            'summary events will be saved during training and '
                            'evaluation. Separate subdirectories for training '
@@ -34,8 +34,8 @@ tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/test',
                            'your runs.')
 tf.app.flags.DEFINE_string('sequence_example_file', '/tmp/attention_rnn/sequence_examples/training_melodies.tfrecord',
                            'Path to TFRecord file containing '
-                           'tf.SequenceExample records for training or '
-tf.app.flags.DEFINE_integer('num_training_steps', 0,
+                           'tf.SequenceExample records for training or ')
+tf.app.flags.DEFINE_integer('num_training_steps', 2000,
                             'The the number of global training steps your '
                             'model should take before exiting training. '
                             'During evaluation, the eval loop will run until '
@@ -66,7 +66,8 @@ def main(unused_argv):
     tf.logging.fatal('--sequence_example_file required')
     return
 
-  sequence_example_file = os.path.expanduser(FLAGS.sequence_example_file)
+  sequence_example_file_paths = tf.gfile.Glob(
+      os.path.expanduser(FLAGS.sequence_example_file))
   run_dir = os.path.expanduser(FLAGS.run_dir)
 
   config = melody_rnn_config_flags.config_from_flags()
@@ -75,10 +76,10 @@ def main(unused_argv):
   graph = None
   if FLAGS.graph == 'old':
     tf.logging.info('Using old graph')
-    graph = events_rnn_graph.build_graph(mode, config, sequence_example_file)
+    graph = events_rnn_graph.build_graph(mode, config, sequence_example_file_paths)
   else:
     tf.logging.info('Using new graph')
-    graph = vl_rnn_graph.build_graph(mode, config, sequence_example_file)
+    graph = vl_rnn_graph.build_graph(mode, config, sequence_example_file_paths)
 
   train_dir = os.path.join(run_dir, 'train')
   if not os.path.exists(train_dir):
