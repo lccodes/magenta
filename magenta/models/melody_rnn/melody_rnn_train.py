@@ -19,7 +19,7 @@ import os
 import tensorflow as tf
 
 from magenta.models.melody_rnn import melody_rnn_config_flags
-from magenta.models.shared import vl_rnn_graph
+from magenta.models.shared import banger_rnn_graph
 from magenta.models.shared import events_rnn_train
 
 FLAGS = tf.app.flags.FLAGS
@@ -79,7 +79,7 @@ def main(unused_argv):
     graph = events_rnn_graph.build_graph(mode, config, sequence_example_file_paths)
   else:
     tf.logging.info('Using new graph')
-    graph = vl_rnn_graph.build_graph(mode, config, sequence_example_file_paths)
+    graph = banger_rnn_graph.build_graph(mode, config, sequence_example_file_paths)
 
   train_dir = os.path.join(run_dir, 'train')
   if not os.path.exists(train_dir):

@@ -34,8 +34,8 @@ py_library(
 )
 
 py_library(
-    name = "vl_rnn_graph",
-    srcs = ["vl_rnn_graph.py"],
+    name = "banger_rnn_graph",
+    srcs = ["banger_rnn_graph.py"],
     srcs_version = "PY2AND3",
     deps = [
         "//magenta",
