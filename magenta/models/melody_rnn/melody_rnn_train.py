@@ -32,7 +32,7 @@ tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/freq',
                            'parent directory of `run_dir`. Point TensorBoard '
                            'to the parent directory of `run_dir` to see all '
                            'your runs.')
-tf.app.flags.DEFINE_string('sequence_example_file', '/tmp/attention_rnn/sequence_examples/training_melodies.tfrecord',
+tf.app.flags.DEFINE_string('sequence_example_file', '/tmp/classidicks.tfrecord',
                            'Path to TFRecord file containing '
                            'tf.SequenceExample records for training or ')
 tf.app.flags.DEFINE_integer('num_training_steps', 2000,

@@ -30,13 +30,13 @@ from magenta.protobuf import music_pb2
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string(
-    'run_dir', '/tmp/attention_rnn/logdir/run1',
+    'run_dir', None,
     'Path to the directory where the latest checkpoint will be loaded from.')
 tf.app.flags.DEFINE_string(
     'checkpoint_file', None,
     'Path to the checkpoint file. run_dir will take priority over this flag.')
 tf.app.flags.DEFINE_string(
-    'bundle_file', None,
+    'bundle_file', '/tmp/attention_rnn.mag',
     'Path to the bundle file. If specified, this will take priority over '
     'run_dir and checkpoint_file, unless save_generator_bundle is True, in '
     'which case both this flag and either run_dir or checkpoint_file are '
@@ -61,7 +61,7 @@ tf.app.flags.DEFINE_integer(
     'The total number of steps the generated melodies should be, priming '
     'melody length + generated steps. Each step is a 16th of a bar.')
 tf.app.flags.DEFINE_string(
-    'primer_melody', '',
+    'primer_melody', '[60, -2, 60, -2, 67, -2, 67, -2]',
     'A string representation of a Python list of '
     'magenta.music.Melody event values. For example: '
     '"[60, -2, 60, -2, 67, -2, 67, -2]". If specified, this melody will be '
