@@ -113,6 +113,7 @@ py_binary(
         ":melody_rnn_config_flags",
         ":melody_rnn_model",
         ":melody_rnn_sequence_generator",
+        "//magenta/models/shared:vl_rnn_graph",
         "//magenta",
         # tensorflow dep
     ],

@@ -21,9 +21,10 @@ import tensorflow as tf
 from magenta.models.melody_rnn import melody_rnn_config_flags
 from magenta.models.shared import vl_rnn_graph
 from magenta.models.shared import events_rnn_train
+from magenta.models.shared import events_rnn_graph
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/freq',
+tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/lookback',
                            'Path to the directory where checkpoints and '
                            'summary events will be saved during training and '
                            'evaluation. Separate subdirectories for training '
@@ -32,7 +33,7 @@ tf.app.flags.DEFINE_string('run_dir', '/tmp/melody_rnn/logdir/freq',
                            'parent directory of `run_dir`. Point TensorBoard '
                            'to the parent directory of `run_dir` to see all '
                            'your runs.')
-tf.app.flags.DEFINE_string('sequence_example_file', '/tmp/attention_rnn/sequence_examples/training_melodies.tfrecord',
+tf.app.flags.DEFINE_string('sequence_example_file', '/tmp/attention_rnn/sequence_examples_lb/training_melodies.tfrecord',
                            'Path to TFRecord file containing '
                            'tf.SequenceExample records for training or ')
 tf.app.flags.DEFINE_integer('num_training_steps', 2000,
@@ -53,7 +54,7 @@ tf.app.flags.DEFINE_boolean('eval', False,
 tf.app.flags.DEFINE_string('log', 'INFO',
                            'The threshold for what messages will be logged '
                            'DEBUG, INFO, WARN, ERROR, or FATAL.')
-tf.app.flags.DEFINE_string('graph', 'new', 'Which graph to use; either VLs (new) or Magentas (old)')
+tf.app.flags.DEFINE_string('graph', 'old', 'Which graph to use; either VLs (new) or Magentas (old)')
 
 def main(unused_argv):
   tf.logging.set_verbosity(FLAGS.log)

@@ -49,7 +49,7 @@ message GeneratorOptions {
       double float_value = 3;
     }
   }
-  map<string, ArgValue> args = 3;
+  map<string, ArgValue> args = 4;
 }
 
 // Bundle for wrapping a generator id, checkpoint file, and metagraph.

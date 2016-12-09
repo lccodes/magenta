@@ -22,7 +22,8 @@ import numpy as np
 from six.moves import range  # pylint: disable=redefined-builtin
 import tensorflow as tf
 
-from magenta.models.shared import events_rnn_graph
+import magenta.models.shared.vl_rnn_graph as vl_rnn_graph
+import magenta.models.shared.events_rnn_graph as events_rnn_graph
 import magenta.music as mm
 
 
@@ -55,7 +56,7 @@ class EventSequenceRnnModel(mm.BaseModel):
     self._config.hparams.batch_size = 1
 
   def _build_graph_for_generation(self):
-    return events_rnn_graph.build_graph('generate', self._config)
+    return vl_rnn_graph.build_graph('generate', self._config)
 
   def _generate_step_for_batch(self, event_sequences, inputs, initial_state,
                                temperature):

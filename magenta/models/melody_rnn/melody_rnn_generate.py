@@ -30,7 +30,7 @@ from magenta.protobuf import music_pb2
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string(
-    'run_dir', '/tmp/attention_rnn/logdir/run1',
+    'run_dir', '/tmp/melody_rnn/logdir/grid',
     'Path to the directory where the latest checkpoint will be loaded from.')
 tf.app.flags.DEFINE_string(
     'checkpoint_file', None,
@@ -50,14 +50,14 @@ tf.app.flags.DEFINE_string(
     'A short, human-readable text description of the bundle (e.g., training '
     'data, hyper parameters, etc.).')
 tf.app.flags.DEFINE_string(
-    'output_dir', '/tmp/melody_rnn/generated',
+    'output_dir', '/tmp/melody_rnn/generated/sick',
     'The directory where MIDI files will be saved to.')
 tf.app.flags.DEFINE_integer(
     'num_outputs', 10,
     'The number of melodies to generate. One MIDI file will be created for '
     'each.')
 tf.app.flags.DEFINE_integer(
-    'num_steps', 128,
+    'num_steps', 1500,
     'The total number of steps the generated melodies should be, priming '
     'melody length + generated steps. Each step is a 16th of a bar.')
 tf.app.flags.DEFINE_string(
@@ -68,7 +68,7 @@ tf.app.flags.DEFINE_string(
     'used as the priming melody. If a priming melody is not specified, '
     'melodies will be generated from scratch.')
 tf.app.flags.DEFINE_string(
-    'primer_midi', '',
+    'primer_midi', '/home/lcamery/magenta/artificialBeatDrop/midi/banger/lag6.mid',
     'The path to a MIDI file containing a melody that will be used as a '
     'priming melody. If a primer melody is not specified, melodies will be '
     'generated from scratch.')
@@ -97,7 +97,9 @@ tf.app.flags.DEFINE_string(
     'log', 'INFO',
     'The threshold for what messages will be logged DEBUG, INFO, WARN, ERROR, '
     'or FATAL.')
-
+tf.app.flags.DEFINE_string(
+    'model', 'new',
+    'Which TF model to use')
 
 def get_checkpoint():
   """Get the training dir or checkpoint path to be used by the model."""
@@ -214,6 +216,7 @@ def run_with_flags(generator):
   generator_options.args['branch_factor'].int_value = FLAGS.branch_factor
   generator_options.args[
       'steps_per_iteration'].int_value = FLAGS.steps_per_iteration
+  #generator_options.args['model'].string_value = FLAGS.model
   tf.logging.debug('input_sequence: %s', input_sequence)
   tf.logging.debug('generator_options: %s', generator_options)
 
