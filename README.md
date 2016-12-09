@@ -1,3 +1,13 @@
+## Forker's Note
+This a forked version of Google's Magenta modified by Luke, Valentin, Grant, and JD.
+We added flags for using a GridLSTM, Peephole LSTM, and Heterogenous LSTMs. The following
+Magenta documentation applies, but in order to use our code, add the flags:
+--graph=new
+--lstm_type={grid,peephole,hetero,basic}
+
+lstm_type depends on usage of graph=new. Note that all three of our new models {grid,peephole,hetero}
+make use of both Attention and Lookback.
+
 <img src="http://magenta.tensorflow.org/assets/magenta-logo.png" height="75">
 
 **Magenta** is a project from the [Google Brain team](https://research.google.com/teams/brain/)
