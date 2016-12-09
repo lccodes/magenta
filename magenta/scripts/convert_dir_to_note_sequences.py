@@ -35,12 +35,12 @@ from magenta.music import note_sequence_io
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_string('input_dir', None,
+tf.app.flags.DEFINE_string('input_dir', '~/Dropbox/CS/artificialBeatDrop/midi/classical',
                            'Directory containing files to convert.')
-tf.app.flags.DEFINE_string('output_file', None,
+tf.app.flags.DEFINE_string('output_file', '/tmp/classidicks.tfrecord',
                            'Path to output TFRecord file. Will be overwritten '
                            'if it already exists.')
-tf.app.flags.DEFINE_bool('recursive', False,
+tf.app.flags.DEFINE_bool('recursive', True,
                          'Whether or not to recurse into subdirectories.')
 tf.app.flags.DEFINE_string('log', 'INFO',
                            'The threshold for what messages will be logged '
